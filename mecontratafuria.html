@@ -111,6 +111,7 @@
             font-size: 1rem;
             background: #2a2a2a;
             color: #fff;
+            box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
         }
 
         input::placeholder,
@@ -184,21 +185,19 @@
         <h1>🔥 Know Your Fan - FURIA 🔥</h1>
     </header>
 
-    <!-- Botão de alternância de tema (menor agora) -->
     <button class="toggle-theme-btn" onclick="toggleTheme()">🌙</button>
 
     <main>
         <h2>Cadastre-se</h2>
         <input type="text" id="nome" placeholder="Seu nome" />
         <input type="number" id="idade" placeholder="Sua idade" />
-        <select id="redeSocial">
-            <option value="Twitter">Twitter</option>
+        <select id="redeSocial" onchange="atualizarValorUsuario()">
+            <option value="X">X (Antigo Twitter)</option>
             <option value="Instagram">Instagram</option>
             <option value="Discord">Discord</option>
         </select>
-        <input type="text" id="usuario" placeholder="@usuário da rede" />
+        <input type="text" id="usuario" placeholder="" />
 
-        <!-- Novo campo de jogo favorito -->
         <select id="jogoFavorito">
             <option value="CS:GO">CS:GO</option>
             <option value="Valorant">Valorant</option>
@@ -207,7 +206,6 @@
             <option value="Rainbow Six Siege">Rainbow Six Siege</option>
         </select>
 
-        <!-- Campo de influenciador favorito agora editável -->
         <input type="text" id="influenciadorFavorito" placeholder="Nome do influenciador favorito" />
 
         <h3>O que você gosta na FURIA?</h3>
@@ -224,7 +222,7 @@
     <script>
         const linksOficiais = {
             Instagram: 'https://www.instagram.com/furiagg/?hl=pt-br',
-            Twitter: 'https://twitter.com/furia',
+            X: 'https://twitter.com/furia', // Atualizado para X
             Discord: 'https://discord.gg/furia'
         };
 
@@ -239,11 +237,22 @@
             return 'Bronze';
         }
 
+        function atualizarValorUsuario() {
+            const redeSocial = document.getElementById('redeSocial').value;
+            const usuarioInput = document.getElementById('usuario');
+
+            if (redeSocial === 'X' || redeSocial === 'Instagram') {
+                usuarioInput.value = '@';
+            } else {
+                usuarioInput.value = '';
+            }
+        }
+
         function cadastrarFan() {
             const nome = document.getElementById('nome').value.trim();
             const idade = document.getElementById('idade').value.trim();
             const rede = document.getElementById('redeSocial').value;
-            const usuario = document.getElementById('usuario').value.trim();
+            let usuario = document.getElementById('usuario').value.trim();
             const jogoFavorito = document.getElementById('jogoFavorito').value;
             const influenciadorFavorito = document.getElementById('influenciadorFavorito').value.trim();
             const gostou = document.getElementById('gostou').value.trim();
@@ -254,9 +263,11 @@
                 return;
             }
 
-            if (!usuario.startsWith('@')) {
-                alert('O campo de usuário deve começar com "@".');
-                return;
+            // Remove o "@" inicial se o usuário digitou novamente
+            if ((rede === 'X' || rede === 'Instagram') && usuario.startsWith('@') && usuario.length > 1) {
+                usuario = usuario.substring(1);
+            } else if ((rede === 'X' || rede === 'Instagram') && usuario === '@') {
+                usuario = ''; // Garante que apenas o "@" não seja salvo
             }
 
             const interacoes = Math.floor(Math.random() * 100);
@@ -293,7 +304,7 @@
         <p><strong>Nome:</strong> ${fan.nome}</p>
         <p><strong>Idade:</strong> ${fan.idade}</p>
         <p><strong>Rede:</strong> ${fan.rede}</p>
-        <p><strong>Usuário:</strong> ${fan.usuario}</p>
+        <p><strong>Usuário:</strong> @${fan.usuario}</p>
         <p><strong>Jogo Favorito:</strong> ${fan.jogoFavorito}</p>
         <p><strong>Influenciador Favorito:</strong> ${fan.influenciadorFavorito}</p>
         <p><strong>O que você gosta na FURIA:</strong> ${fan.gostou}</p>
@@ -311,7 +322,8 @@
         function limparCampos() {
             document.getElementById('nome').value = '';
             document.getElementById('idade').value = '';
-            document.getElementById('redeSocial').value = 'Twitter';
+            document.getElementById('redeSocial').value = 'X';
+            atualizarValorUsuario();
             document.getElementById('usuario').value = '';
             document.getElementById('jogoFavorito').value = 'CS:GO';
             document.getElementById('influenciadorFavorito').value = '';
@@ -327,6 +339,7 @@
 
         window.onload = function () {
             sessionStorage.clear();
+            atualizarValorUsuario(); // Define o valor inicial do usuário
         };
     </script>
 </body>
