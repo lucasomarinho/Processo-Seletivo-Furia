@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Know Your Fan - FURIA</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+        /* Animação */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Corpo */
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: #000000;
+            color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        /* Header */
+        header {
+            background: #0f0f0f;
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 3px solid #00ff88;
+            animation: fadeIn 1s ease-out;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            color: #00ff88;
+            text-shadow: 2px 2px #000;
+        }
+
+        header img {
+            height: 80px;
+            margin-bottom: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #00ff88;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Botão de alternância de tema (agora menor) */
+        .toggle-theme-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background: #00ff88;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            box-shadow: 0 0 10px #00ff88;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .toggle-theme-btn:hover {
+            background-color: #00cc6e;
+            transform: scale(1.05);
+        }
+
+        .toggle-theme-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Main */
+        main {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #1e1e1e;
+            border-radius: 20px;
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+
+        input,
+        button,
+        select,
+        textarea {
+            width: 100%;
+            margin: 0.75rem 0;
+            padding: 1rem;
+            border-radius: 10px;
+            border: none;
+            font-size: 1rem;
+            background: #2a2a2a;
+            color: #fff;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #888;
+        }
+
+        button {
+            background-color: #00ff88;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+            position: relative;
+        }
+
+        button:hover {
+            background-color: #00cc6e;
+            transform: scale(1.07);
+            box-shadow: 0 0 25px #00ff88, 0 0 40px #00cc6e;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        h2,
+        h3 {
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #262626;
+            border-radius: 15px;
+            box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.1);
+        }
+
+        .badge {
+            background: #00ff88;
+            color: #000;
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            display: inline-block;
+            margin: 0.3rem 0.2rem;
+            font-weight: bold;
+            box-shadow: 0 0 5px #00ff88;
+        }
+
+        .agradecimento {
+            background: #1a1a1a;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-left: 5px solid #00ff88;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .agradecimento p {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+
+<body class="dark-mode">
+    <header>
+        <h1>🔥 Know Your Fan - FURIA 🔥</h1>
+    </header>
+
+    <!-- Botão de alternância de tema (menor agora) -->
+    <button class="toggle-theme-btn" onclick="toggleTheme()">🌙</button>
+
+    <main>
+        <h2>Cadastre-se</h2>
+        <input type="text" id="nome" placeholder="Seu nome" />
+        <input type="number" id="idade" placeholder="Sua idade" />
+        <select id="redeSocial">
+            <option value="Twitter">Twitter</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Discord">Discord</option>
+        </select>
+        <input type="text" id="usuario" placeholder="@usuário da rede" />
+
+        <!-- Novo campo de jogo favorito -->
+        <select id="jogoFavorito">
+            <option value="CS:GO">CS:GO</option>
+            <option value="Valorant">Valorant</option>
+            <option value="League of Legends">League of Legends</option>
+            <option value="Fortnite">Fortnite</option>
+            <option value="Rainbow Six Siege">Rainbow Six Siege</option>
+        </select>
+
+        <!-- Campo de influenciador favorito agora editável -->
+        <input type="text" id="influenciadorFavorito" placeholder="Nome do influenciador favorito" />
+
+        <h3>O que você gosta na FURIA?</h3>
+        <textarea id="gostou" placeholder="Escreva aqui o que você gosta na FURIA..." rows="4"></textarea>
+        <h3>O que você acha que poderia melhorar na FURIA?</h3>
+        <textarea id="melhorar" placeholder="Escreva aqui suas sugestões de melhoria para a FURIA..."
+            rows="4"></textarea>
+
+        <button onclick="cadastrarFan()">Cadastrar</button>
+
+        <div class="profile" id="profile"></div>
+    </main>
+
+    <script>
+        const linksOficiais = {
+            Instagram: 'https://www.instagram.com/furiagg/?hl=pt-br',
+            Twitter: 'https://twitter.com/furia',
+            Discord: 'https://discord.gg/furia'
+        };
+
+        function obterRanking(interacoes) {
+            if (interacoes >= 90) return 'Challenger';
+            if (interacoes >= 80) return 'Mestre';
+            if (interacoes >= 70) return 'Grão Mestre';
+            if (interacoes >= 60) return 'Diamante';
+            if (interacoes >= 50) return 'Platina';
+            if (interacoes >= 40) return 'Ouro';
+            if (interacoes >= 30) return 'Prata';
+            return 'Bronze';
+        }
+
+        function cadastrarFan() {
+            const nome = document.getElementById('nome').value.trim();
+            const idade = document.getElementById('idade').value.trim();
+            const rede = document.getElementById('redeSocial').value;
+            const usuario = document.getElementById('usuario').value.trim();
+            const jogoFavorito = document.getElementById('jogoFavorito').value;
+            const influenciadorFavorito = document.getElementById('influenciadorFavorito').value.trim();
+            const gostou = document.getElementById('gostou').value.trim();
+            const melhorar = document.getElementById('melhorar').value.trim();
+
+            if (!nome || !idade || !usuario || !gostou || !melhorar) {
+                alert('Por favor, preencha todos os campos antes de cadastrar.');
+                return;
+            }
+
+            if (!usuario.startsWith('@')) {
+                alert('O campo de usuário deve começar com "@".');
+                return;
+            }
+
+            const interacoes = Math.floor(Math.random() * 100);
+            const ranking = obterRanking(interacoes);
+
+            const dados = {
+                nome,
+                idade,
+                rede,
+                usuario,
+                jogoFavorito,
+                influenciadorFavorito,
+                gostou,
+                melhorar,
+                interacoes,
+                ranking,
+                hashtags: ['#GoFURIA', '#FURIAArmy', '#LetsGoFURIA'],
+                badges: ['Engajado', 'Top Fan']
+            };
+
+            sessionStorage.setItem('fanProfile', JSON.stringify(dados));
+            mostrarAgradecimento(dados);
+            limparCampos();
+        }
+
+        function mostrarAgradecimento(fan) {
+            const div = document.getElementById('profile');
+            div.innerHTML = `
+        <div class="agradecimento">
+          <p>Obrigado, <strong>${fan.nome}</strong>! Seus dados foram recebidos com sucesso.</p>
+          <p>Confira seu perfil abaixo:</p>
+        </div>
+        <h3>Perfil do Fã</h3>
+        <p><strong>Nome:</strong> ${fan.nome}</p>
+        <p><strong>Idade:</strong> ${fan.idade}</p>
+        <p><strong>Rede:</strong> ${fan.rede}</p>
+        <p><strong>Usuário:</strong> ${fan.usuario}</p>
+        <p><strong>Jogo Favorito:</strong> ${fan.jogoFavorito}</p>
+        <p><strong>Influenciador Favorito:</strong> ${fan.influenciadorFavorito}</p>
+        <p><strong>O que você gosta na FURIA:</strong> ${fan.gostou}</p>
+        <p><strong>O que poderia melhorar na FURIA:</strong> ${fan.melhorar}</p>
+        <p><strong>Interações:</strong> ${fan.interacoes}</p>
+        <p><strong>Ranking:</strong> <span class="badge">${fan.ranking}</span></p>
+        <p><strong>Hashtags Usadas:</strong> ${fan.hashtags.join(', ')}</p>
+        <p><strong>Badges:</strong></p>
+        ${fan.badges.map(b => `<span class="badge">${b}</span>`).join('')}
+        <br /><br />
+        <button onclick="window.open('${linksOficiais[fan.rede]}', '_blank'); document.getElementById('profile').innerHTML = ''">Clique aqui para visitar a página oficial da FURIA no ${fan.rede}</button>
+      `;
+        }
+
+        function limparCampos() {
+            document.getElementById('nome').value = '';
+            document.getElementById('idade').value = '';
+            document.getElementById('redeSocial').value = 'Twitter';
+            document.getElementById('usuario').value = '';
+            document.getElementById('jogoFavorito').value = 'CS:GO';
+            document.getElementById('influenciadorFavorito').value = '';
+            document.getElementById('gostou').value = '';
+            document.getElementById('melhorar').value = '';
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle('light-mode');
+            body.classList.toggle('dark-mode');
+        }
+
+        window.onload = function () {
+            sessionStorage.clear();
+        };
+    </script>
+</body>
+
+</html>
